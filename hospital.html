@@ -1,0 +1,1037 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستشفى القلب التخصصي | النظام الإلكتروني المتكامل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F1F3D;
+  --ink-2:#16294D;
+  --crimson:#C81E45;
+  --crimson-dark:#8F1332;
+  --crimson-glow:rgba(200,30,69,.35);
+  --ivory:#FBF8F4;
+  --card:#FFFFFF;
+  --teal:#177C74;
+  --teal-tint:#E4F1EF;
+  --slate:#5B6472;
+  --slate-light:#8992A0;
+  --rose:#F6E5E9;
+  --line:#E9E1DA;
+  --line-2:#E2E7ED;
+  --amber:#B9791A;
+  --amber-tint:#FBF0DE;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:'Tajawal',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4,.display{font-family:'Cairo',sans-serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;text-decoration:none;}
+button{font-family:'Cairo',sans-serif;cursor:pointer;border:none;}
+input,select,textarea{font-family:'Tajawal',sans-serif;}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline:2px solid var(--crimson);outline-offset:2px;
+}
+::selection{background:var(--crimson-glow);}
+
+/* ---------- Utility ---------- */
+.container{max-width:1180px;margin:0 auto;padding:0 28px;}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 26px;border-radius:10px;font-weight:700;font-size:15px;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--crimson);color:#fff;box-shadow:0 10px 24px -8px var(--crimson-glow);}
+.btn-primary:hover{background:var(--crimson-dark);}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55);}
+.btn-outline:hover{background:rgba(255,255,255,.12);}
+.btn-ghost{background:var(--rose);color:var(--crimson-dark);}
+.btn-ghost:hover{background:#efd3da;}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:#12655e;}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:8px;}
+.btn-line{background:#fff;border:1.5px solid var(--line-2);color:var(--ink);}
+.btn-line:hover{border-color:var(--slate-light);}
+.btn-danger{background:#fff;color:var(--crimson-dark);border:1.5px solid var(--rose);}
+.btn-danger:hover{background:var(--rose);}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:12.5px;font-weight:700;}
+.pill-teal{background:var(--teal-tint);color:var(--teal);}
+.pill-amber{background:var(--amber-tint);color:var(--amber);}
+.pill-rose{background:var(--rose);color:var(--crimson-dark);}
+.pill-slate{background:#EEF1F5;color:var(--slate);}
+
+/* ---------- Pulse / signature element ---------- */
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--crimson);position:relative;flex:none;}
+.pulse-dot::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--crimson);
+  animation:pulseRing 1.8s ease-out infinite;
+}
+@keyframes pulseRing{0%{transform:scale(.4);opacity:.9;}100%{transform:scale(1.9);opacity:0;}}
+.ekg-wrap{width:100%;overflow:hidden;line-height:0;}
+.ekg-line{width:200%;height:auto;display:block;}
+.ekg-path{
+  fill:none;stroke:var(--crimson);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px var(--crimson-glow));
+}
+@media (prefers-reduced-motion: no-preference){
+  .ekg-line{animation:ekgScroll 7s linear infinite;}
+}
+@keyframes ekgScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- Landing ---------- */
+.hero{background:radial-gradient(120% 140% at 20% -10%, var(--ink-2) 0%, var(--ink) 55%, #081226 100%);color:#fff;position:relative;}
+.hero-top{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Cairo',sans-serif;font-weight:800;font-size:19px;}
+.brand-mark{width:34px;height:34px;flex:none;}
+.hero-nav-actions{display:flex;gap:10px;}
+.hero-body{padding:56px 0 40px;text-align:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;color:#F2C9D3;font-weight:700;font-size:13px;letter-spacing:.03em;margin-bottom:18px;}
+.hero-title{font-size:44px;line-height:1.28;font-weight:900;margin:0 0 16px;}
+.hero-title span{color:#F2839B;}
+.hero-sub{color:#C7CEDD;font-size:17px;max-width:620px;margin:0 auto 30px;line-height:1.9;}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin-top:8px;}
+.hero-stat{background:rgba(255,255,255,.04);padding:20px 10px;text-align:center;}
+.hero-stat b{display:block;font-family:'Cairo',sans-serif;font-size:26px;font-weight:800;color:#fff;}
+.hero-stat span{font-size:12.5px;color:#AEB7C9;}
+
+.section{padding:64px 0;}
+.section-head{text-align:center;max-width:600px;margin:0 auto 38px;}
+.eyebrow{color:var(--crimson);font-weight:700;font-size:12.5px;letter-spacing:.05em;margin-bottom:8px;display:block;}
+.section-title{font-size:28px;font-weight:800;margin:0 0 10px;}
+.section-desc{color:var(--slate);font-size:15px;line-height:1.8;}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.svc-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;transition:border-color .15s, transform .15s;}
+.svc-card:hover{border-color:var(--crimson);transform:translateY(-3px);}
+.svc-num{font-family:'JetBrains Mono',monospace;color:var(--crimson);font-size:13px;font-weight:600;margin-bottom:14px;display:block;}
+.svc-card h3{font-size:17px;margin:0 0 8px;}
+.svc-card p{color:var(--slate);font-size:13.5px;line-height:1.8;margin:0;}
+
+.book-band{background:var(--teal);border-radius:20px;padding:38px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#fff;}
+.book-band h3{margin:0 0 6px;font-size:22px;}
+.book-band p{margin:0;color:#D6ECE9;font-size:14px;}
+
+footer{background:var(--ink);color:#AEB7C9;padding:38px 0;font-size:13.5px;}
+.footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;}
+.footer-grid b{color:#fff;}
+
+/* ---------- Auth / booking screens ---------- */
+.center-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px;background:linear-gradient(160deg,var(--ink) 0%, #081226 100%);}
+.auth-card{background:#fff;border-radius:20px;width:100%;max-width:460px;padding:38px 34px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4);}
+.auth-back{display:inline-flex;align-items:center;gap:6px;color:var(--slate);font-size:13.5px;font-weight:700;margin-bottom:18px;}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;}
+.role-opt{border:1.5px solid var(--line-2);border-radius:12px;padding:14px 10px;text-align:center;font-weight:700;font-size:13.5px;color:var(--slate);transition:.15s;background:#fff;}
+.role-opt.active{border-color:var(--crimson);background:var(--rose);color:var(--crimson-dark);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.field input, .field select, .field textarea{
+  width:100%;padding:11px 13px;border-radius:9px;border:1.5px solid var(--line-2);font-size:14.5px;background:#fbfbfc;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--crimson);background:#fff;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hint{font-size:12px;color:var(--slate-light);margin-top:4px;}
+.err{color:var(--crimson-dark);font-size:13px;font-weight:700;background:var(--rose);padding:9px 12px;border-radius:8px;margin-bottom:14px;}
+.ok-banner{color:var(--teal);font-size:13.5px;font-weight:700;background:var(--teal-tint);padding:10px 12px;border-radius:8px;margin-bottom:14px;}
+
+/* ---------- App shell ---------- */
+.shell{display:flex;min-height:100vh;}
+.sidebar{width:250px;flex:none;background:var(--ink);color:#fff;display:flex;flex-direction:column;padding:22px 0;position:sticky;top:0;height:100vh;}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding:0 22px 20px;font-family:'Cairo',sans-serif;font-weight:800;font-size:16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:8px;}
+.sidebar-brand small{display:block;font-family:'Tajawal',sans-serif;font-weight:400;font-size:11px;color:#9AA4BB;}
+.nav-item{display:block;padding:12px 22px;font-size:14px;font-weight:700;color:#C7CEDD;border-right:3px solid transparent;transition:.15s;}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.04);}
+.nav-item.active{color:#fff;background:rgba(200,30,69,.16);border-right-color:var(--crimson);}
+.sidebar-foot{margin-top:auto;padding:16px 22px 0;border-top:1px solid rgba(255,255,255,.1);}
+.user-chip{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.user-avatar{width:34px;height:34px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:none;}
+.user-meta b{display:block;font-size:13px;}
+.user-meta span{font-size:11.5px;color:#9AA4BB;}
+
+.main{flex:1;min-width:0;background:var(--ivory);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 30px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5;}
+.topbar h2{margin:0;font-size:19px;}
+.topbar-right{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--slate);}
+.content{padding:26px 30px 60px;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px;}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;}
+.stat-card span{font-size:12.5px;color:var(--slate);font-weight:700;}
+.stat-card b{display:block;font-family:'Cairo',sans-serif;font-size:26px;margin-top:6px;}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:22px;overflow:hidden;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px;}
+.panel-head h3{margin:0;font-size:16.5px;}
+.panel-body{padding:20px 22px;}
+.panel-body.tight{padding:0;}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead th{text-align:right;color:var(--slate);font-weight:700;font-size:12.5px;padding:10px 22px;background:#FAFAFB;border-bottom:1px solid var(--line);white-space:nowrap;}
+tbody td{padding:13px 22px;border-bottom:1px solid var(--line);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#FCFAF8;}
+.actions-cell{display:flex;gap:6px;flex-wrap:wrap;}
+.empty-row td{text-align:center;color:var(--slate-light);padding:34px;}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-grid .full{grid-column:1/-1;}
+.bar-list .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.bar-row .bar-label{width:150px;font-size:13px;color:var(--slate);font-weight:700;flex:none;}
+.bar-track{flex:1;height:10px;background:#EFEFF3;border-radius:100px;overflow:hidden;}
+.bar-fill{height:100%;background:var(--crimson);border-radius:100px;}
+.bar-row .bar-val{width:30px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--slate);}
+
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:700;}
+.tag-navy{background:#E9EDF6;color:var(--ink);}
+
+@media (max-width:980px){
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .hero-stats{grid-template-columns:repeat(2,1fr);}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .shell{flex-direction:column;}
+  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;overflow-x:auto;padding:12px 0;}
+  .sidebar-brand,.sidebar-foot{display:none;}
+  .nav-item{border-right:none;border-bottom:3px solid transparent;white-space:nowrap;}
+  .nav-item.active{border-bottom-color:var(--crimson);}
+  .services-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:30px;}
+  .content{padding:18px 16px 50px;}
+  .topbar{padding:14px 16px;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =========================================================
+   مستشفى القلب التخصصي -- النظام الإلكتروني المتكامل
+   تطبيق واحد (SPA) يعمل بالكامل من جهة العميل، مع تخزين
+   مشترك عبر window.storage بحيث تتزامن البيانات بين الأدوار.
+   ========================================================= */
+
+const STORE_KEY = 'heart-hospital-db-v1';
+
+let DB = null;
+let state = {
+  view: 'landing',       // landing | book | login | app
+  currentUser: null,     // {id,name,role}
+  module: null,
+  bookOk: false,
+  loginError: '',
+  loginRoleTab: 'admin',
+  flash: ''
+};
+
+/* ---------------- Utilities ---------------- */
+function genId(prefix){ return prefix + '-' + Math.random().toString(36).slice(2,8); }
+function esc(s){ return (s===undefined||s===null) ? '' : String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function fmtDate(d){ if(!d) return '--'; const parts = d.split('-'); return parts.length===3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : d; }
+function money(n){ return Number(n||0).toLocaleString('en-US') + ' ر.س'; }
+
+async function loadDB(){
+  try{
+    const res = await window.storage.get(STORE_KEY, true);
+    if(res && res.value){ DB = JSON.parse(res.value); return; }
+    throw new Error('no data');
+  }catch(e){
+    DB = seedDB();
+    await saveDB();
+  }
+}
+async function saveDB(){
+  try{ await window.storage.set(STORE_KEY, JSON.stringify(DB), true); }
+  catch(e){ console.error('storage error', e); }
+}
+
+function seedDB(){
+  const today = todayStr();
+  const departments = [
+    {id:'dep-1', name:'قسم القلب والشرايين', desc:'التشخيص والمتابعة الدورية لأمراض القلب والشرايين'},
+    {id:'dep-2', name:'قسم القسطرة القلبية', desc:'إجراءات القسطرة التشخيصية والعلاجية'},
+    {id:'dep-3', name:'جراحة القلب المفتوح', desc:'العمليات الجراحية الكبرى والمتابعة بعد الجراحة'},
+    {id:'dep-4', name:'العيادات الخارجية', desc:'الاستشارات والفحوصات غير الطارئة'},
+    {id:'dep-5', name:'الطوارئ القلبية', desc:'استقبال الحالات الحرجة على مدار الساعة'},
+    {id:'dep-6', name:'العناية المركزة القلبية', desc:'متابعة الحالات الحرجة بعد العمليات والقسطرة'}
+  ];
+  const doctors = [
+    {id:'doc-1', name:'د. سالم الحربي', specialty:'استشاري قلب وشرايين', depId:'dep-1', days:'الأحد، الثلاثاء، الخميس', phone:'0501112233'},
+    {id:'doc-2', name:'د. نورة العتيبي', specialty:'استشارية قسطرة قلبية', depId:'dep-2', days:'السبت، الاثنين، الأربعاء', phone:'0502223344'},
+    {id:'doc-3', name:'د. فيصل القحطاني', specialty:'جراح قلب وصدر', depId:'dep-3', days:'الأحد، الأربعاء', phone:'0503334455'},
+    {id:'doc-4', name:'د. هند الزهراني', specialty:'أخصائية عيادات خارجية', depId:'dep-4', days:'يوميًا', phone:'0504445566'},
+    {id:'doc-5', name:'د. عبدالله المطيري', specialty:'استشاري عناية مركزة قلبية', depId:'dep-6', days:'مناوبات', phone:'0505556677'}
+  ];
+  const patients = [
+    {id:'pat-1', name:'محمد أحمد العلي', phone:'0551234567', age:58, gender:'ذكر', records:[{doctorId:'doc-1', date:today, note:'ارتفاع طفيف في ضغط الدم، تم تعديل الجرعة العلاجية.'}]},
+    {id:'pat-2', name:'فاطمة سعيد الغامدي', phone:'0557654321', age:45, gender:'أنثى', records:[]},
+    {id:'pat-3', name:'خالد ناصر الدوسري', phone:'0559988776', age:63, gender:'ذكر', records:[{doctorId:'doc-2', date:today, note:'أجريت قسطرة تشخيصية، النتائج طبيعية.'}]}
+  ];
+  const appointments = [
+    {id:'apt-1', patientName:'محمد أحمد العلي', phone:'0551234567', depId:'dep-1', doctorId:'doc-1', date:today, time:'09:30', status:'confirmed', notes:''},
+    {id:'apt-2', patientName:'فاطمة سعيد الغامدي', phone:'0557654321', depId:'dep-4', doctorId:'doc-4', date:today, time:'11:00', status:'pending', notes:''},
+    {id:'apt-3', patientName:'خالد ناصر الدوسري', phone:'0559988776', depId:'dep-2', doctorId:'doc-2', date:today, time:'13:15', status:'checked-in', notes:''}
+  ];
+  const invoices = [
+    {id:'inv-1', patientName:'محمد أحمد العلي', service:'استشارة + تخطيط قلب', amount:450, status:'paid', date:today},
+    {id:'inv-2', patientName:'خالد ناصر الدوسري', service:'قسطرة تشخيصية', amount:6200, status:'unpaid', date:today}
+  ];
+  const employees = [
+    {id:'emp-1', name:'د. سالم الحربي', role:'طبيب', department:'قسم القلب والشرايين', phone:'0501112233', salary:38000, status:'نشط'},
+    {id:'emp-2', name:'د. نورة العتيبي', role:'طبيب', department:'قسم القسطرة القلبية', phone:'0502223344', salary:41000, status:'نشط'},
+    {id:'emp-3', name:'سارة القرني', role:'استقبال', department:'العيادات الخارجية', phone:'0561112233', salary:6500, status:'نشط'},
+    {id:'emp-4', name:'ريم الشهري', role:'محاسبة', department:'الحسابات', phone:'0562223344', salary:8200, status:'نشط'},
+    {id:'emp-5', name:'بندر السبيعي', role:'شؤون عاملين', department:'الموارد البشرية', phone:'0563334455', salary:7800, status:'نشط'},
+    {id:'emp-6', name:'منى الحارثي', role:'تمريض', department:'العناية المركزة القلبية', phone:'0564445566', salary:9500, status:'نشط'}
+  ];
+  const users = [
+    {id:'usr-1', username:'admin', password:'admin123', name:'مدير النظام', role:'admin'},
+    {id:'usr-2', username:'reception', password:'1234', name:'سارة القرني', role:'reception'},
+    {id:'usr-3', username:'salem', password:'1234', name:'د. سالم الحربي', role:'doctor', doctorId:'doc-1'},
+    {id:'usr-4', username:'noura', password:'1234', name:'د. نورة العتيبي', role:'doctor', doctorId:'doc-2'},
+    {id:'usr-5', username:'accounts', password:'1234', name:'ريم الشهري', role:'accountant'},
+    {id:'usr-6', username:'hr', password:'1234', name:'بندر السبيعي', role:'hr'}
+  ];
+  return {departments, doctors, patients, appointments, invoices, employees, users, attendance:{}};
+}
+
+/* ---------------- Role config ---------------- */
+const ROLE_LABELS = {admin:'مدير النظام', reception:'الاستقبال', doctor:'طبيب', accountant:'الحسابات', hr:'شؤون العاملين'};
+const NAV_CONFIG = {
+  admin:[
+    {key:'overview', label:'لوحة المعلومات'},
+    {key:'appointments', label:'المواعيد'},
+    {key:'reception', label:'الاستقبال'},
+    {key:'doctors', label:'الأطباء'},
+    {key:'patients', label:'المرضى'},
+    {key:'accounts', label:'الحسابات'},
+    {key:'staff', label:'العاملون'},
+    {key:'departments', label:'الأقسام'},
+    {key:'users', label:'المستخدمون والصلاحيات'}
+  ],
+  reception:[
+    {key:'overview', label:'لوحة المعلومات'},
+    {key:'appointments', label:'المواعيد'},
+    {key:'reception', label:'الاستقبال'},
+    {key:'patients', label:'المرضى'}
+  ],
+  doctor:[
+    {key:'overview', label:'لوحة المعلومات'},
+    {key:'myAppointments', label:'مواعيدي'},
+    {key:'myPatients', label:'سجلات مرضاي'}
+  ],
+  accountant:[
+    {key:'overview', label:'لوحة المعلومات'},
+    {key:'accounts', label:'الفواتير والمدفوعات'}
+  ],
+  hr:[
+    {key:'overview', label:'لوحة المعلومات'},
+    {key:'staff', label:'الموظفون'},
+    {key:'attendance', label:'الحضور والانصراف'}
+  ]
+};
+
+/* ---------------- App actions ---------------- */
+const app = {
+  goto(view){ state.view = view; state.loginError=''; render(); window.scrollTo(0,0); },
+  gotoModule(key){ state.module = key; render(); },
+
+  async submitBooking(e){
+    e.preventDefault();
+    const f = e.target;
+    const depId = f.dep.value;
+    const doctorId = f.doctor.value;
+    const apt = {
+      id: genId('apt'),
+      patientName: f.name.value.trim(),
+      phone: f.phone.value.trim(),
+      depId, doctorId,
+      date: f.date.value,
+      time: f.time.value,
+      status: 'pending',
+      notes: f.notes.value.trim()
+    };
+    if(!apt.patientName || !apt.phone || !depId || !apt.date || !apt.time){ return false; }
+    DB.appointments.push(apt);
+    if(!DB.patients.some(p => p.phone === apt.phone)){
+      DB.patients.push({id:genId('pat'), name:apt.patientName, phone:apt.phone, age:'', gender:'', records:[]});
+    }
+    await saveDB();
+    state.bookOk = true;
+    render();
+    return false;
+  },
+
+  selectLoginRole(role){ state.loginRoleTab = role; render(); },
+
+  async submitLogin(e){
+    e.preventDefault();
+    const f = e.target;
+    const username = f.username.value.trim();
+    const password = f.password.value;
+    const user = DB.users.find(u => u.username === username && u.password === password && u.role === state.loginRoleTab);
+    if(!user){ state.loginError = 'بيانات الدخول غير صحيحة، أو لا تطابق الدور المحدد.'; render(); return false; }
+    state.currentUser = user;
+    state.loginError = '';
+    state.module = NAV_CONFIG[user.role][0].key;
+    state.view = 'app';
+    render();
+    return false;
+  },
+
+  logout(){ state.currentUser = null; state.view='landing'; state.module=null; render(); },
+
+  /* ---- generic mutations ---- */
+  async updateAppointmentStatus(id, status){
+    const a = DB.appointments.find(x=>x.id===id); if(a) a.status = status;
+    await saveDB(); render();
+  },
+  async deleteAppointment(id){
+    DB.appointments = DB.appointments.filter(a=>a.id!==id);
+    await saveDB(); render();
+  },
+  async addAppointment(e){
+    e.preventDefault(); const f=e.target;
+    DB.appointments.push({
+      id:genId('apt'), patientName:f.name.value.trim(), phone:f.phone.value.trim(),
+      depId:f.dep.value, doctorId:f.doctor.value, date:f.date.value, time:f.time.value,
+      status:'confirmed', notes:f.notes.value.trim()
+    });
+    if(!DB.patients.some(p=>p.phone===f.phone.value.trim())){
+      DB.patients.push({id:genId('pat'), name:f.name.value.trim(), phone:f.phone.value.trim(), age:'', gender:'', records:[]});
+    }
+    await saveDB(); f.reset(); render();
+    return false;
+  },
+  async addPatientQuick(e){
+    e.preventDefault(); const f=e.target;
+    DB.patients.push({id:genId('pat'), name:f.name.value.trim(), phone:f.phone.value.trim(), age:f.age.value||'', gender:f.gender.value||'', records:[]});
+    await saveDB(); f.reset(); render();
+    return false;
+  },
+  async addDoctorNote(patientId, doctorId, text){
+    if(!text) return;
+    const p = DB.patients.find(x=>x.id===patientId);
+    if(p){ p.records.push({doctorId, date:todayStr(), note:text}); await saveDB(); render(); }
+  },
+  async addDoctor(e){
+    e.preventDefault(); const f=e.target;
+    DB.doctors.push({id:genId('doc'), name:f.name.value.trim(), specialty:f.specialty.value.trim(), depId:f.dep.value, days:f.days.value.trim(), phone:f.phone.value.trim()});
+    await saveDB(); f.reset(); render(); return false;
+  },
+  async deleteDoctor(id){ DB.doctors = DB.doctors.filter(d=>d.id!==id); await saveDB(); render(); },
+  async addDepartment(e){
+    e.preventDefault(); const f=e.target;
+    DB.departments.push({id:genId('dep'), name:f.name.value.trim(), desc:f.desc.value.trim()});
+    await saveDB(); f.reset(); render(); return false;
+  },
+  async deleteDepartment(id){ DB.departments = DB.departments.filter(d=>d.id!==id); await saveDB(); render(); },
+  async addInvoice(e){
+    e.preventDefault(); const f=e.target;
+    DB.invoices.push({id:genId('inv'), patientName:f.patientName.value.trim(), service:f.service.value.trim(), amount:Number(f.amount.value||0), status:'unpaid', date:todayStr()});
+    await saveDB(); f.reset(); render(); return false;
+  },
+  async markInvoicePaid(id){ const i=DB.invoices.find(x=>x.id===id); if(i) i.status='paid'; await saveDB(); render(); },
+  async deleteInvoice(id){ DB.invoices = DB.invoices.filter(i=>i.id!==id); await saveDB(); render(); },
+  async addEmployee(e){
+    e.preventDefault(); const f=e.target;
+    DB.employees.push({id:genId('emp'), name:f.name.value.trim(), role:f.role.value.trim(), department:f.department.value.trim(), phone:f.phone.value.trim(), salary:Number(f.salary.value||0), status:'نشط'});
+    await saveDB(); f.reset(); render(); return false;
+  },
+  async toggleEmployeeStatus(id){
+    const e2 = DB.employees.find(x=>x.id===id); if(e2) e2.status = e2.status==='نشط' ? 'متوقف':'نشط';
+    await saveDB(); render();
+  },
+  async deleteEmployee(id){ DB.employees = DB.employees.filter(e=>e.id!==id); await saveDB(); render(); },
+  async toggleAttendance(empId){
+    const d = todayStr();
+    if(!DB.attendance[d]) DB.attendance[d] = {};
+    DB.attendance[d][empId] = !DB.attendance[d][empId];
+    await saveDB(); render();
+  },
+  async addUser(e){
+    e.preventDefault(); const f=e.target;
+    DB.users.push({id:genId('usr'), username:f.username.value.trim(), password:f.password.value, name:f.name.value.trim(), role:f.role.value});
+    await saveDB(); f.reset(); render(); return false;
+  },
+  async deleteUser(id){
+    if(DB.users.length<=1) return;
+    DB.users = DB.users.filter(u=>u.id!==id); await saveDB(); render();
+  }
+};
+window.app = app;
+
+/* ---------------- Shared bits ---------------- */
+function ekgSvg(){
+  return `<div class="ekg-wrap"><svg class="ekg-line" viewBox="0 0 800 60" preserveAspectRatio="none">
+    <path class="ekg-path" d="M0 30 H60 L80 30 L95 10 L110 50 L125 30 L145 30 H210 L230 30 L245 10 L260 50 L275 30 L295 30 H360 L380 30 L395 10 L410 50 L425 30 L445 30 H510 L530 30 L545 10 L560 50 L575 30 L595 30 H660 L680 30 L695 10 L710 50 L725 30 L745 30 H800"/>
+    <path class="ekg-path" d="M800 30 H860 L880 30 L895 10 L910 50 L925 30 L945 30 H1010 L1030 30 L1045 10 L1060 50 L1075 30 L1095 30 H1160 L1180 30 L1195 10 L1210 50 L1225 30 L1245 30 H1310 L1330 30 L1345 10 L1360 50 L1375 30 L1395 30 H1460 L1480 30 L1495 10 L1510 50 L1525 30 L1545 30 H1600"/>
+  </svg></div>`;
+}
+function brandMark(light){
+  const c = light ? '#fff' : 'var(--crimson)';
+  return `<svg class="brand-mark" viewBox="0 0 40 40" fill="none"><path d="M20 33S5 24 5 14.5 12 5 17 9c1.6 1.3 3 3.3 3 3.3s1.4-2 3-3.3c5-4 12 .5 12 5.5S20 33 20 33Z" fill="${c}" opacity="0.14"/><path d="M4 20h6l3 8 5-16 3 8h15" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+/* ---------------- Views ---------------- */
+function viewLanding(){
+  const depCount = DB.departments.length, docCount = DB.doctors.length;
+  const today = todayStr();
+  const todayApts = DB.appointments.filter(a=>a.date===today).length;
+  const patCount = DB.patients.length;
+  return `
+  <div class="hero">
+    <div class="container hero-top">
+      <div class="brand">${brandMark(true)} مستشفى القلب التخصصي</div>
+      <div class="hero-nav-actions">
+        <button class="btn btn-outline btn-sm" onclick="app.goto('login')">دخول الموظفين</button>
+      </div>
+    </div>
+    <div class="container hero-body">
+      <span class="hero-eyebrow"><span class="pulse-dot"></span> النظام يعمل الآن على مدار الساعة</span>
+      <h1 class="hero-title">نبض واحد يجمعنا<br><span>رعاية قلبية لا تتوقف</span></h1>
+      <p class="hero-sub">نظام إلكتروني متكامل لإدارة رحلة المريض القلبي كاملة: من حجز الموعد إلى الاستقبال والتشخيص والمتابعة المالية، في مكان واحد يخدم كل فريق المستشفى.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="app.goto('book')">احجز موعدك الآن</button>
+        <button class="btn btn-outline" onclick="app.goto('login')">دخول الموظفين والإدارة</button>
+      </div>
+    </div>
+    ${ekgSvg()}
+    <div class="container" style="padding-bottom:44px;">
+      <div class="hero-stats">
+        <div class="hero-stat"><b class="mono">${depCount}</b><span>أقسام طبية متخصصة</span></div>
+        <div class="hero-stat"><b class="mono">${docCount}</b><span>استشاريون وأطباء</span></div>
+        <div class="hero-stat"><b class="mono">${todayApts}</b><span>مواعيد اليوم</span></div>
+        <div class="hero-stat"><b class="mono">${patCount}</b><span>ملفات مرضى مسجّلة</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">خدماتنا</span>
+        <h2 class="section-title">نظام واحد، بأدوار متعددة</h2>
+        <p class="section-desc">وحدة متخصصة لكل فريق داخل المستشفى، بصلاحيات وصول مستقلة تحافظ على دقة البيانات وسرعة الإنجاز.</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card"><span class="svc-num">01 · للمرضى</span><h3>حجز الموعد</h3><p>حجز إلكتروني مباشر مع اختيار القسم والطبيب والوقت المناسب، بلا انتظار على الهاتف.</p></div>
+        <div class="svc-card"><span class="svc-num">02 · فريق الاستقبال</span><h3>الاستقبال</h3><p>تسجيل وصول المرضى، متابعة قوائم الانتظار، وتسجيل الملفات الجديدة بسرعة.</p></div>
+        <div class="svc-card"><span class="svc-num">03 · الأطباء</span><h3>نظام الأطباء</h3><p>جدول مواعيد كل طبيب، سجل المرضى، وتدوين الملاحظات الطبية والمتابعة.</p></div>
+        <div class="svc-card"><span class="svc-num">04 · الإدارة</span><h3>نظام الإدارة</h3><p>نظرة شاملة على أداء المستشفى، إدارة الأقسام، والصلاحيات لكل مستخدم.</p></div>
+        <div class="svc-card"><span class="svc-num">05 · الحسابات</span><h3>نظام الحسابات</h3><p>إصدار الفواتير، تتبع المدفوعات والمستحقات، وتقارير مالية فورية.</p></div>
+        <div class="svc-card"><span class="svc-num">06 · الموارد البشرية</span><h3>نظام العاملين</h3><p>سجل الموظفين، الرواتب، والحضور والانصراف اليومي لجميع الأقسام.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="book-band">
+        <div>
+          <h3>حالتك القلبية تستحق موعدًا سريعًا</h3>
+          <p>احجز الآن، وسيتواصل معك فريق الاستقبال لتأكيد الموعد.</p>
+        </div>
+        <button class="btn btn-primary" style="background:#fff;color:var(--teal);" onclick="app.goto('book')">ابدأ الحجز</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><b>مستشفى القلب التخصصي</b><br>رعاية قلبية متكاملة، على مدار الساعة.</div>
+      <div><b>الطوارئ القلبية</b><br>937 (متوفر 24 ساعة)</div>
+      <div><b>ساعات العيادات الخارجية</b><br>يوميًا من 8 صباحًا حتى 9 مساءً</div>
+      <div><b>تواصل معنا</b><br>info@heart-hospital.example</div>
+    </div>
+  </footer>
+  `;
+}
+
+function viewBook(){
+  const deps = DB.departments;
+  const doctorsOptions = (depId) => DB.doctors.filter(d=> !depId || d.depId===depId);
+  if(state.bookOk){
+    return `
+    <div class="center-screen">
+      <div class="auth-card" style="text-align:center;">
+        ${brandMark(false)}
+        <h2 style="margin:16px 0 8px;">تم استلام طلب الحجز</h2>
+        <p style="color:var(--slate);font-size:14px;line-height:1.8;margin-bottom:22px;">سيقوم فريق الاستقبال بمراجعة موعدك والتواصل معك لتأكيده. شكرًا لثقتك بمستشفى القلب التخصصي.</p>
+        <button class="btn btn-primary" style="width:100%;" onclick="state.bookOk=false; app.goto('landing')">عودة للصفحة الرئيسية</button>
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="center-screen">
+    <div class="auth-card" style="max-width:560px;">
+      <a class="auth-back" onclick="app.goto('landing')" href="javascript:void(0)">‹ الرئيسية</a>
+      <h2 style="margin:0 0 4px;">حجز موعد جديد</h2>
+      <p style="color:var(--slate);font-size:13.5px;margin:0 0 20px;">عبّئ بياناتك وسنؤكد موعدك في أقرب وقت.</p>
+      <form onsubmit="return app.submitBooking(event)">
+        <div class="field-row">
+          <div class="field"><label>الاسم الكامل</label><input name="name" required placeholder="مثال: أحمد سالم"></div>
+          <div class="field"><label>رقم الجوال</label><input name="phone" required placeholder="05xxxxxxxx"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>القسم الطبي</label>
+            <select name="dep" required onchange="this.form.doctor.innerHTML = document.getElementById('docOptsAll').innerHTML.split('|SEP|').filter((o,i)=>window.__depFilter(i,this.value)).join('')">
+              <option value="">اختر القسم</option>
+              ${deps.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field"><label>الطبيب المفضّل (اختياري)</label>
+            <select name="doctor"><option value="">أي طبيب متاح</option>${DB.doctors.map(d=>`<option value="${d.id}" data-dep="${d.depId}">${esc(d.name)} -- ${esc(d.specialty)}</option>`).join('')}</select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>التاريخ المفضّل</label><input type="date" name="date" required min="${todayStr()}"></div>
+          <div class="field"><label>الوقت المفضّل</label><input type="time" name="time" required></div>
+        </div>
+        <div class="field"><label>ملاحظات (اختياري)</label><textarea name="notes" rows="2" placeholder="أي أعراض أو معلومات تودّ إضافتها"></textarea></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:6px;">تأكيد طلب الحجز</button>
+      </form>
+    </div>
+  </div>`;
+}
+
+function viewLogin(){
+  const roles = ['admin','reception','doctor','accountant','hr'];
+  return `
+  <div class="center-screen">
+    <div class="auth-card">
+      <a class="auth-back" onclick="app.goto('landing')" href="javascript:void(0)">‹ الرئيسية</a>
+      <h2 style="margin:0 0 4px;">دخول الموظفين</h2>
+      <p style="color:var(--slate);font-size:13.5px;margin:0 0 6px;">اختر دورك ثم سجّل الدخول.</p>
+      <div class="role-grid">
+        ${roles.map(r=>`<div class="role-opt ${state.loginRoleTab===r?'active':''}" onclick="app.selectLoginRole('${r}')">${ROLE_LABELS[r]}</div>`).join('')}
+      </div>
+      ${state.loginError ? `<div class="err">${esc(state.loginError)}</div>` : ''}
+      <form onsubmit="return app.submitLogin(event)">
+        <div class="field"><label>اسم المستخدم</label><input name="username" required autocomplete="username"></div>
+        <div class="field"><label>كلمة المرور</label><input name="password" type="password" required autocomplete="current-password"></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:6px;">تسجيل الدخول</button>
+      </form>
+      <p class="hint" style="margin-top:16px;">تجريبي -- مدير النظام: admin / admin123، وباقي الأدوار كلمة المرور 1234.</p>
+    </div>
+  </div>`;
+}
+
+/* ---------------- App shell + modules ---------------- */
+function sidebar(){
+  const u = state.currentUser;
+  const items = NAV_CONFIG[u.role];
+  return `
+  <aside class="sidebar">
+    <div class="sidebar-brand">${brandMark(true)} مستشفى القلب<small>النظام الإلكتروني المتكامل</small></div>
+    ${items.map(it=>`<a class="nav-item ${state.module===it.key?'active':''}" href="javascript:void(0)" onclick="app.gotoModule('${it.key}')">${it.label}</a>`).join('')}
+    <div class="sidebar-foot">
+      <div class="user-chip">
+        <div class="user-avatar">${esc(u.name.trim().charAt(0))}</div>
+        <div class="user-meta"><b>${esc(u.name)}</b><span>${ROLE_LABELS[u.role]}</span></div>
+      </div>
+      <button class="btn btn-line btn-sm" style="width:100%;" onclick="app.logout()">تسجيل الخروج</button>
+    </div>
+  </aside>`;
+}
+
+function moduleTitle(key){
+  const map = {overview:'لوحة المعلومات', appointments:'إدارة المواعيد', reception:'الاستقبال', doctors:'نظام الأطباء',
+    patients:'ملفات المرضى', accounts:'نظام الحسابات', staff:'نظام العاملين', departments:'الأقسام الطبية',
+    users:'المستخدمون والصلاحيات', myAppointments:'مواعيدي اليوم', myPatients:'سجلات مرضاي', attendance:'الحضور والانصراف'};
+  return map[key] || '';
+}
+
+function doctorName(id){ const d = DB.doctors.find(x=>x.id===id); return d ? d.name : '--'; }
+function depName(id){ const d = DB.departments.find(x=>x.id===id); return d ? d.name : '--'; }
+function statusPill(status){
+  const map = {pending:['قيد الانتظار','pill-amber'], confirmed:['مؤكد','pill-teal'], 'checked-in':['تم الوصول','pill-slate'], done:['منتهي','pill-teal'], cancelled:['ملغي','pill-rose']};
+  const [label,cls] = map[status] || [status,'pill-slate'];
+  return `<span class="pill ${cls}">${label}</span>`;
+}
+
+function moduleOverview(){
+  const today = todayStr();
+  const todayApts = DB.appointments.filter(a=>a.date===today);
+  const unpaid = DB.invoices.filter(i=>i.status==='unpaid').reduce((s,i)=>s+i.amount,0);
+  const byDep = DB.departments.map(d=>({name:d.name, count: DB.appointments.filter(a=>a.depId===d.id).length}));
+  const maxCount = Math.max(1, ...byDep.map(b=>b.count));
+  return `
+  <div class="stat-grid">
+    <div class="stat-card"><span>مواعيد اليوم</span><b>${todayApts.length}</b></div>
+    <div class="stat-card"><span>إجمالي المرضى</span><b>${DB.patients.length}</b></div>
+    <div class="stat-card"><span>الأطباء النشطون</span><b>${DB.doctors.length}</b></div>
+    <div class="stat-card"><span>مستحقات غير مسددة</span><b class="mono">${money(unpaid)}</b></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>توزيع المواعيد على الأقسام</h3></div>
+    <div class="panel-body bar-list">
+      ${byDep.map(b=>`<div class="bar-row"><span class="bar-label">${esc(b.name)}</span><div class="bar-track"><div class="bar-fill" style="width:${(b.count/maxCount*100)||0}%"></div></div><span class="bar-val mono">${b.count}</span></div>`).join('')}
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>مواعيد اليوم</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>المريض</th><th>القسم</th><th>الطبيب</th><th>الوقت</th><th>الحالة</th></tr></thead>
+      <tbody>
+        ${todayApts.length ? todayApts.map(a=>`<tr><td>${esc(a.patientName)}</td><td>${esc(depName(a.depId))}</td><td>${esc(doctorName(a.doctorId))}</td><td class="mono">${a.time}</td><td>${statusPill(a.status)}</td></tr>`).join('') : `<tr class="empty-row"><td colspan="5">لا توجد مواعيد مسجّلة اليوم.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleAppointments(readOnlyDoctorId){
+  const list = readOnlyDoctorId ? DB.appointments.filter(a=>a.doctorId===readOnlyDoctorId) : DB.appointments;
+  const sorted = [...list].sort((a,b)=> (a.date+a.time) < (b.date+b.time) ? 1 : -1);
+  return `
+  ${!readOnlyDoctorId ? `
+  <div class="panel">
+    <div class="panel-head"><h3>إضافة موعد جديد</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addAppointment(event)">
+        <div class="field"><label>اسم المريض</label><input name="name" required></div>
+        <div class="field"><label>رقم الجوال</label><input name="phone" required></div>
+        <div class="field"><label>القسم</label><select name="dep" required><option value="">اختر</option>${DB.departments.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select></div>
+        <div class="field"><label>الطبيب</label><select name="doctor" required><option value="">اختر</option>${DB.doctors.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select></div>
+        <div class="field"><label>التاريخ</label><input type="date" name="date" required></div>
+        <div class="field"><label>الوقت</label><input type="time" name="time" required></div>
+        <div class="field full"><label>ملاحظات</label><textarea name="notes" rows="2"></textarea></div>
+        <div class="full"><button class="btn btn-primary" type="submit">إضافة الموعد</button></div>
+      </form>
+    </div>
+  </div>` : ''}
+  <div class="panel">
+    <div class="panel-head"><h3>${readOnlyDoctorId ? 'كل مواعيدك' : 'جميع المواعيد'}</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>المريض</th><th>الجوال</th><th>القسم</th>${readOnlyDoctorId?'':'<th>الطبيب</th>'}<th>التاريخ</th><th>الوقت</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+      <tbody>
+        ${sorted.length ? sorted.map(a=>`
+          <tr>
+            <td>${esc(a.patientName)}</td><td class="mono">${esc(a.phone)}</td><td>${esc(depName(a.depId))}</td>
+            ${readOnlyDoctorId?'':`<td>${esc(doctorName(a.doctorId))}</td>`}
+            <td class="mono">${fmtDate(a.date)}</td><td class="mono">${a.time}</td><td>${statusPill(a.status)}</td>
+            <td class="actions-cell">
+              ${a.status!=='confirmed' ? `<button class="btn btn-sm btn-teal" onclick="app.updateAppointmentStatus('${a.id}','confirmed')">تأكيد</button>`:''}
+              ${a.status!=='done' ? `<button class="btn btn-sm btn-ghost" onclick="app.updateAppointmentStatus('${a.id}','done')">إنهاء</button>`:''}
+              ${a.status!=='cancelled' ? `<button class="btn btn-sm btn-danger" onclick="app.updateAppointmentStatus('${a.id}','cancelled')">إلغاء</button>`:''}
+              ${!readOnlyDoctorId ? `<button class="btn btn-sm btn-line" onclick="app.deleteAppointment('${a.id}')">حذف</button>`:''}
+            </td>
+          </tr>`).join('') : `<tr class="empty-row"><td colspan="8">لا توجد مواعيد.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleReception(){
+  const today = todayStr();
+  const todayApts = DB.appointments.filter(a=>a.date===today);
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>تسجيل مريض جديد</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addPatientQuick(event)">
+        <div class="field"><label>الاسم الكامل</label><input name="name" required></div>
+        <div class="field"><label>رقم الجوال</label><input name="phone" required></div>
+        <div class="field"><label>العمر</label><input name="age" type="number" min="0"></div>
+        <div class="field"><label>الجنس</label><select name="gender"><option value="">--</option><option value="ذكر">ذكر</option><option value="أنثى">أنثى</option></select></div>
+        <div class="full"><button class="btn btn-primary" type="submit">تسجيل المريض</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>قائمة انتظار اليوم</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>المريض</th><th>القسم</th><th>الطبيب</th><th>الوقت</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${todayApts.length ? todayApts.map(a=>`
+          <tr><td>${esc(a.patientName)}</td><td>${esc(depName(a.depId))}</td><td>${esc(doctorName(a.doctorId))}</td><td class="mono">${a.time}</td><td>${statusPill(a.status)}</td>
+          <td class="actions-cell">
+            ${a.status!=='checked-in' && a.status!=='done' ? `<button class="btn btn-sm btn-teal" onclick="app.updateAppointmentStatus('${a.id}','checked-in')">تسجيل الوصول</button>` : '<span class="hint">--</span>'}
+          </td></tr>`).join('') : `<tr class="empty-row"><td colspan="6">لا توجد مواعيد اليوم.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleDoctors(){
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>إضافة طبيب</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addDoctor(event)">
+        <div class="field"><label>الاسم</label><input name="name" required></div>
+        <div class="field"><label>التخصص</label><input name="specialty" required></div>
+        <div class="field"><label>القسم</label><select name="dep" required><option value="">اختر</option>${DB.departments.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select></div>
+        <div class="field"><label>أيام العمل</label><input name="days" placeholder="مثال: الأحد، الثلاثاء"></div>
+        <div class="field"><label>الجوال</label><input name="phone"></div>
+        <div class="full"><button class="btn btn-primary" type="submit">إضافة</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>قائمة الأطباء</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>الاسم</th><th>التخصص</th><th>القسم</th><th>أيام العمل</th><th>الجوال</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.doctors.map(d=>`<tr><td>${esc(d.name)}</td><td>${esc(d.specialty)}</td><td>${esc(depName(d.depId))}</td><td>${esc(d.days)}</td><td class="mono">${esc(d.phone)}</td>
+        <td class="actions-cell"><button class="btn btn-sm btn-danger" onclick="app.deleteDoctor('${d.id}')">حذف</button></td></tr>`).join('')}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function modulePatients(){
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>ملفات المرضى</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>الاسم</th><th>الجوال</th><th>العمر</th><th>الجنس</th><th>عدد الزيارات المسجّلة</th><th>آخر ملاحظة طبية</th></tr></thead>
+      <tbody>
+        ${DB.patients.length ? DB.patients.map(p=>{
+          const last = p.records[p.records.length-1];
+          return `<tr><td>${esc(p.name)}</td><td class="mono">${esc(p.phone)}</td><td>${esc(p.age)||'--'}</td><td>${esc(p.gender)||'--'}</td><td class="mono">${p.records.length}</td><td>${last ? esc(last.note) : '--'}</td></tr>`;
+        }).join('') : `<tr class="empty-row"><td colspan="6">لا يوجد مرضى مسجّلون.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleMyPatients(doctorId){
+  const patients = DB.patients.filter(p => p.records.some(r=>r.doctorId===doctorId) || DB.appointments.some(a=>a.doctorId===doctorId && a.phone===p.phone));
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>مرضاي</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>المريض</th><th>الجوال</th><th>آخر ملاحظة</th><th>إضافة ملاحظة</th></tr></thead>
+      <tbody>
+        ${patients.length ? patients.map(p=>{
+          const mine = p.records.filter(r=>r.doctorId===doctorId);
+          const last = mine[mine.length-1];
+          const noteId = 'note-'+p.id;
+          return `<tr>
+            <td>${esc(p.name)}</td><td class="mono">${esc(p.phone)}</td>
+            <td style="max-width:220px;">${last? esc(last.note) : '--'}</td>
+            <td>
+              <div style="display:flex;gap:6px;">
+                <input id="${noteId}" placeholder="ملاحظة أو وصفة..." style="padding:8px 10px;border-radius:8px;border:1.5px solid var(--line-2);font-size:13px;flex:1;">
+                <button class="btn btn-sm btn-primary" onclick="app.addDoctorNote('${p.id}','${doctorId}', document.getElementById('${noteId}').value); document.getElementById('${noteId}').value=''">حفظ</button>
+              </div>
+            </td>
+          </tr>`;
+        }).join('') : `<tr class="empty-row"><td colspan="4">لا يوجد مرضى مرتبطون بك حتى الآن.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleAccounts(){
+  const totalPaid = DB.invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  const totalUnpaid = DB.invoices.filter(i=>i.status==='unpaid').reduce((s,i)=>s+i.amount,0);
+  return `
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-card"><span>إجمالي المحصّل</span><b class="mono" style="color:var(--teal);">${money(totalPaid)}</b></div>
+    <div class="stat-card"><span>مستحقات غير مسددة</span><b class="mono" style="color:var(--crimson);">${money(totalUnpaid)}</b></div>
+    <div class="stat-card"><span>عدد الفواتير</span><b>${DB.invoices.length}</b></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>إصدار فاتورة جديدة</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addInvoice(event)">
+        <div class="field"><label>اسم المريض</label><input name="patientName" required></div>
+        <div class="field"><label>الخدمة</label><input name="service" required placeholder="مثال: قسطرة تشخيصية"></div>
+        <div class="field"><label>المبلغ (ر.س)</label><input name="amount" type="number" min="0" required></div>
+        <div class="full"><button class="btn btn-primary" type="submit">إصدار الفاتورة</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>الفواتير</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>المريض</th><th>الخدمة</th><th>المبلغ</th><th>التاريخ</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.invoices.length ? DB.invoices.map(i=>`
+          <tr><td>${esc(i.patientName)}</td><td>${esc(i.service)}</td><td class="mono">${money(i.amount)}</td><td class="mono">${fmtDate(i.date)}</td>
+          <td>${i.status==='paid'?'<span class="pill pill-teal">مسدد</span>':'<span class="pill pill-amber">غير مسدد</span>'}</td>
+          <td class="actions-cell">
+            ${i.status!=='paid' ? `<button class="btn btn-sm btn-teal" onclick="app.markInvoicePaid('${i.id}')">تسجيل الدفع</button>`:''}
+            <button class="btn btn-sm btn-danger" onclick="app.deleteInvoice('${i.id}')">حذف</button>
+          </td></tr>`).join('') : `<tr class="empty-row"><td colspan="6">لا توجد فواتير.</td></tr>`}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleStaff(){
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>إضافة موظف</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addEmployee(event)">
+        <div class="field"><label>الاسم</label><input name="name" required></div>
+        <div class="field"><label>الوظيفة</label><input name="role" required placeholder="طبيب / تمريض / استقبال..."></div>
+        <div class="field"><label>القسم</label><input name="department" required></div>
+        <div class="field"><label>الجوال</label><input name="phone"></div>
+        <div class="field"><label>الراتب (ر.س)</label><input name="salary" type="number" min="0"></div>
+        <div class="full"><button class="btn btn-primary" type="submit">إضافة الموظف</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>سجل الموظفين</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>الاسم</th><th>الوظيفة</th><th>القسم</th><th>الجوال</th><th>الراتب</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.employees.map(e=>`<tr><td>${esc(e.name)}</td><td>${esc(e.role)}</td><td>${esc(e.department)}</td><td class="mono">${esc(e.phone)}</td><td class="mono">${money(e.salary)}</td>
+        <td><span class="pill ${e.status==='نشط'?'pill-teal':'pill-rose'}">${e.status}</span></td>
+        <td class="actions-cell">
+          <button class="btn btn-sm btn-line" onclick="app.toggleEmployeeStatus('${e.id}')">${e.status==='نشط'?'إيقاف':'تفعيل'}</button>
+          <button class="btn btn-sm btn-danger" onclick="app.deleteEmployee('${e.id}')">حذف</button>
+        </td></tr>`).join('')}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleAttendance(){
+  const d = todayStr();
+  const today = DB.attendance[d] || {};
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>الحضور والانصراف -- ${fmtDate(d)}</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>الموظف</th><th>الوظيفة</th><th>الحالة</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.employees.map(e=>`<tr><td>${esc(e.name)}</td><td>${esc(e.role)}</td>
+        <td>${today[e.id] ? '<span class="pill pill-teal">حاضر</span>' : '<span class="pill pill-amber">لم يسجّل</span>'}</td>
+        <td><button class="btn btn-sm ${today[e.id]?'btn-line':'btn-teal'}" onclick="app.toggleAttendance('${e.id}')">${today[e.id]?'إلغاء الحضور':'تسجيل حضور'}</button></td></tr>`).join('')}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleDepartments(){
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>إضافة قسم</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addDepartment(event)">
+        <div class="field"><label>اسم القسم</label><input name="name" required></div>
+        <div class="field"><label>الوصف</label><input name="desc"></div>
+        <div class="full"><button class="btn btn-primary" type="submit">إضافة</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>الأقسام الطبية</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>القسم</th><th>الوصف</th><th>عدد الأطباء</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.departments.map(d=>`<tr><td>${esc(d.name)}</td><td>${esc(d.desc)}</td><td class="mono">${DB.doctors.filter(x=>x.depId===d.id).length}</td>
+        <td class="actions-cell"><button class="btn btn-sm btn-danger" onclick="app.deleteDepartment('${d.id}')">حذف</button></td></tr>`).join('')}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleUsers(){
+  return `
+  <div class="panel">
+    <div class="panel-head"><h3>إضافة مستخدم وتحديد الصلاحية</h3></div>
+    <div class="panel-body">
+      <form class="form-grid" onsubmit="return app.addUser(event)">
+        <div class="field"><label>الاسم</label><input name="name" required></div>
+        <div class="field"><label>اسم المستخدم</label><input name="username" required></div>
+        <div class="field"><label>كلمة المرور</label><input name="password" required></div>
+        <div class="field"><label>الدور / الصلاحية</label>
+          <select name="role" required>
+            <option value="admin">مدير النظام -- صلاحية كاملة</option>
+            <option value="reception">الاستقبال</option>
+            <option value="doctor">طبيب</option>
+            <option value="accountant">الحسابات</option>
+            <option value="hr">شؤون العاملين</option>
+          </select>
+        </div>
+        <div class="full"><button class="btn btn-primary" type="submit">إضافة المستخدم</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>المستخدمون الحاليون</h3></div>
+    <div class="panel-body tight">
+      <table><thead><tr><th>الاسم</th><th>اسم المستخدم</th><th>الصلاحية</th><th>إجراء</th></tr></thead>
+      <tbody>
+        ${DB.users.map(u=>`<tr><td>${esc(u.name)}</td><td class="mono">${esc(u.username)}</td><td><span class="tag tag-navy">${ROLE_LABELS[u.role]}</span></td>
+        <td class="actions-cell"><button class="btn btn-sm btn-danger" onclick="app.deleteUser('${u.id}')">حذف</button></td></tr>`).join('')}
+      </tbody></table>
+    </div>
+  </div>`;
+}
+
+function moduleContent(){
+  const u = state.currentUser;
+  const key = state.module;
+  if(key==='overview') return moduleOverview();
+  if(key==='appointments' && (u.role==='admin'||u.role==='reception')) return moduleAppointments(null);
+  if(key==='reception' && (u.role==='admin'||u.role==='reception')) return moduleReception();
+  if(key==='doctors' && u.role==='admin') return moduleDoctors();
+  if(key==='patients' && (u.role==='admin'||u.role==='reception')) return modulePatients();
+  if(key==='accounts' && (u.role==='admin'||u.role==='accountant')) return moduleAccounts();
+  if(key==='staff' && (u.role==='admin'||u.role==='hr')) return moduleStaff();
+  if(key==='attendance' && u.role==='hr') return moduleAttendance();
+  if(key==='departments' && u.role==='admin') return moduleDepartments();
+  if(key==='users' && u.role==='admin') return moduleUsers();
+  if(key==='myAppointments' && u.role==='doctor') return moduleAppointments(u.doctorId);
+  if(key==='myPatients' && u.role==='doctor') return moduleMyPatients(u.doctorId);
+  return `<div class="panel"><div class="panel-body">لا تملك صلاحية الوصول لهذه الصفحة.</div></div>`;
+}
+
+function viewApp(){
+  return `
+  <div class="shell">
+    ${sidebar()}
+    <div class="main">
+      <div class="topbar">
+        <h2>${moduleTitle(state.module)}</h2>
+        <div class="topbar-right">
+          <span class="pulse-dot"></span> النظام متصل
+        </div>
+      </div>
+      <div class="content">${moduleContent()}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------------- Root render ---------------- */
+function render(){
+  const root = document.getElementById('app');
+  if(!DB){ root.innerHTML = '<div class="center-screen"><span style="color:#fff;">... جاري تحميل النظام</span></div>'; return; }
+  if(state.view==='landing') root.innerHTML = viewLanding();
+  else if(state.view==='book') root.innerHTML = viewBook();
+  else if(state.view==='login') root.innerHTML = viewLogin();
+  else if(state.view==='app' && state.currentUser) root.innerHTML = viewApp();
+  else { state.view='landing'; root.innerHTML = viewLanding(); }
+}
+
+(async function init(){
+  await loadDB();
+  render();
+})();
+</script>
+</body>
+</html>
