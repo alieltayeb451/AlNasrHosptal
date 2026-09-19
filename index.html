@@ -498,15 +498,15 @@ function viewLanding(){
   return `
   <div class="hero">
     <div class="container hero-top">
-      <div class="brand">${brandMark(true)} مستشفى القلب التخصصي</div>
+      <div class="brand">${brandMark(true)} مستشفى النصر التخصصي</div>
       <div class="hero-nav-actions">
         <button class="btn btn-outline btn-sm" onclick="app.goto('login')">دخول الموظفين</button>
       </div>
     </div>
     <div class="container hero-body">
       <span class="hero-eyebrow"><span class="pulse-dot"></span> النظام يعمل الآن على مدار الساعة</span>
-      <h1 class="hero-title">نبض واحد يجمعنا<br><span>رعاية قلبية لا تتوقف</span></h1>
-      <p class="hero-sub">نظام إلكتروني متكامل لإدارة رحلة المريض القلبي كاملة: من حجز الموعد إلى الاستقبال والتشخيص والمتابعة المالية، في مكان واحد يخدم كل فريق المستشفى.</p>
+      <h1 class="hero-title">نبض واحد يجمعنا<br><span>رعاية صحية لا تتوقف</span></h1>
+      <p class="hero-sub">نظام إلكتروني متكامل لإدارة رحلة المريض كاملة: من حجز الموعد إلى الاستقبال والتشخيص والمتابعة المالية، في مكان واحد يخدم كل فريق المستشفى.</p>
       <div class="hero-cta">
         <button class="btn btn-primary" onclick="app.goto('book')">احجز موعدك الآن</button>
         <button class="btn btn-outline" onclick="app.goto('login')">دخول الموظفين والإدارة</button>
@@ -545,7 +545,7 @@ function viewLanding(){
     <div class="container">
       <div class="book-band">
         <div>
-          <h3>حالتك القلبية تستحق موعدًا سريعًا</h3>
+          <h3>حالتك الصحية تستحق موعدًا سريعًا</h3>
           <p>احجز الآن، وسيتواصل معك فريق الاستقبال لتأكيد الموعد.</p>
         </div>
         <button class="btn btn-primary" style="background:#fff;color:var(--teal);" onclick="app.goto('book')">ابدأ الحجز</button>
@@ -555,8 +555,8 @@ function viewLanding(){
 
   <footer>
     <div class="container footer-grid">
-      <div><b>مستشفى القلب التخصصي</b><br>رعاية قلبية متكاملة، على مدار الساعة.</div>
-      <div><b>الطوارئ القلبية</b><br>937 (متوفر 24 ساعة)</div>
+      <div><b>مستشفى النصر التخصصي</b><br>رعاية قلبية متكاملة، على مدار الساعة.</div>
+      <div><b>الطوارئ</b><br>937 (متوفر 24 ساعة)</div>
       <div><b>ساعات العيادات الخارجية</b><br>يوميًا من 8 صباحًا حتى 9 مساءً</div>
       <div><b>تواصل معنا</b><br>info@heart-hospital.example</div>
     </div>
@@ -573,7 +573,7 @@ function viewBook(){
       <div class="auth-card" style="text-align:center;">
         ${brandMark(false)}
         <h2 style="margin:16px 0 8px;">تم استلام طلب الحجز</h2>
-        <p style="color:var(--slate);font-size:14px;line-height:1.8;margin-bottom:22px;">سيقوم فريق الاستقبال بمراجعة موعدك والتواصل معك لتأكيده. شكرًا لثقتك بمستشفى القلب التخصصي.</p>
+        <p style="color:var(--slate);font-size:14px;line-height:1.8;margin-bottom:22px;">سيقوم فريق الاستقبال بمراجعة موعدك والتواصل معك لتأكيده. شكرًا لثقتك بمستشفى النصر التخصصي.</p>
         <button class="btn btn-primary" style="width:100%;" onclick="state.bookOk=false; app.goto('landing')">عودة للصفحة الرئيسية</button>
       </div>
     </div>`;
@@ -639,7 +639,7 @@ function sidebar(){
   const items = NAV_CONFIG[u.role];
   return `
   <aside class="sidebar">
-    <div class="sidebar-brand">${brandMark(true)} مستشفى القلب<small>النظام الإلكتروني المتكامل</small></div>
+    <div class="sidebar-brand">${brandMark(true) مستشفى النصر<small>النظام الإلكتروني المتكامل</small></div>
     ${items.map(it=>`<a class="nav-item ${state.module===it.key?'active':''}" href="javascript:void(0)" onclick="app.gotoModule('${it.key}')">${it.label}</a>`).join('')}
     <div class="sidebar-foot">
       <div class="user-chip">
