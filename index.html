@@ -639,7 +639,7 @@ function sidebar(){
   const items = NAV_CONFIG[u.role];
   return `
   <aside class="sidebar">
-    <div class="sidebar-brand">${brandMark(true) مستشفى النصر<small>النظام الإلكتروني المتكامل</small></div>
+    <div class="sidebar-brand">${brandMark(true)} مستشفى النصر<small>النظام الإلكتروني المتكامل</small></div>
     ${items.map(it=>`<a class="nav-item ${state.module===it.key?'active':''}" href="javascript:void(0)" onclick="app.gotoModule('${it.key}')">${it.label}</a>`).join('')}
     <div class="sidebar-foot">
       <div class="user-chip">
